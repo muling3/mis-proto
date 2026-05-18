@@ -9,7 +9,7 @@ install:               ## Install deps for this package (standalone)
 	npm install
 
 auth:                  ## Authenticate npm to the @mis Azure feed (cross-platform)
-	@test -f .npmrc || { echo "no .npmrc — cp .npmrc.example .npmrc and set <org>/<project>/<feed>"; exit 1; }
+	@test -f .npmrc || { echo "no .npmrc — cp .npmrc.example .npmrc and set MulingeMuli/cb700d0f-abbb-4845-80c9-5a437c3b9cd3/mis-packages"; exit 1; }
 	@if [ -n "$${AZURE_NPM_TOKEN:-}" ]; then \
 	  echo "auth: AZURE_NPM_TOKEN set — npm reads it from .npmrc (no action needed)"; \
 	elif uname -s 2>/dev/null | grep -qiE 'mingw|msys|cygwin|windows'; then \
@@ -33,7 +33,7 @@ pack:                  ## Build then npm pack
 	$(MAKE) build && npm pack
 
 publish: auth build    ## Publish this package to the @mis Azure Artifacts feed
-	npm publish
+	npm publish --no-workspaces
 
 clean:                 ## Remove artefacts
 	rm -rf dist node_modules *.tgz
